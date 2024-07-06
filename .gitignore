@@ -32,10 +32,7 @@ bld/
 [Oo]bj/
 
 # Visual Studio 2019
-.vs/
-.vsidx/
-*.sln
-*.server
+
 
 # Backup & report files from converting an old project file to a newer
 # Visual Studio version. Backup files are not needed, because we have git ;)
@@ -65,4 +62,5 @@ node_modules/
 *.temp
 *.log
 
-#
+# Project-specific files
+Zocoapi/.vs/
