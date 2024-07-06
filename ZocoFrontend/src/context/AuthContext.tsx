@@ -1,0 +1,75 @@
+import React, { createContext, useState, useEffect, ReactNode } from "react";
+import axios from "../api/axios";
+
+interface AuthContextType {
+  auth: { token: string | null; isLoggedIn: boolean };
+  login: (credentials: LoginCredentials) => Promise<void>;
+  register: (userData: RegisterUserData) => Promise<void>;
+  logout: () => void;
+}
+
+interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+interface RegisterUserData {
+  username: string;
+  password: string;
+  email: string;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [auth, setAuth] = useState<{
+    token: string | null;
+    isLoggedIn: boolean;
+  }>({
+    token: null,
+    isLoggedIn: false,
+  });
+
+  useEffect(() => {
+    // Lógica para recuperar el estado de autenticación
+    const token = localStorage.getItem("token");
+    if (token) {
+      setAuth({ token, isLoggedIn: true });
+    }
+  }, []);
+
+  const login = async (credentials: LoginCredentials) => {
+    try {
+      const response = await axios.post("/api/auth/login", credentials);
+      setAuth({ token: response.data.token, isLoggedIn: true });
+      localStorage.setItem("token", response.data.token);
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      throw error;
+    }
+  };
+
+  const register = async (userData: RegisterUserData) => {
+    try {
+      const response = await axios.post("/api/auth/register", userData);
+      setAuth({ token: response.data.token, isLoggedIn: true });
+      localStorage.setItem("token", response.data.token);
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+      throw error;
+    }
+  };
+
+  const logout = () => {
+    setAuth({ token: null, isLoggedIn: false });
+    localStorage.removeItem("token");
+  };
+
+  return (
+    <AuthContext.Provider value={{ auth, login, register, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export { AuthContext, AuthProvider };
