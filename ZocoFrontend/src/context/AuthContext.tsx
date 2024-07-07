@@ -28,15 +28,9 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   }>({
     token: null,
     isLoggedIn: false,
+
   });
 
-  useEffect(() => {
-    // Lógica para recuperar el estado de autenticación
-    const token = localStorage.getItem("token");
-    if (token) {
-      setAuth({ token, isLoggedIn: true });
-    }
-  }, []);
 
   const login = async (credentials: LoginCredentials) => {
     try {

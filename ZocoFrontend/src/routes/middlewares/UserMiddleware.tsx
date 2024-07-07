@@ -1,11 +1,9 @@
-import React, { useEffect, useContext } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import { Outlet } from "react-router-dom";
 import axios from "../../api/axios";
 import { UserContext, UserContextType } from "../../context/UserProvider";
 
-const ProtectedRoute = () => {
-  const [isValidToken, setIsValidToken] = React.useState<boolean | null>(null);
-
+const UserMiddleware = () => {
   const { user, setUser }: UserContextType = useContext(UserContext);
 
   useEffect(() => {
@@ -19,26 +17,16 @@ const ProtectedRoute = () => {
           setUser(userinfo.data);
           console.log(user);
         } catch (error) {
-          setIsValidToken(false);
           localStorage.removeItem("token");
         }
       } else {
-        setIsValidToken(false);
       }
     };
 
     validateToken();
   }, []);
 
-  if (isValidToken === null) {
-    return <></>;
-  }
-
-  if (!isValidToken) {
-    return <Navigate to="/login" />;
-  }
-
   return <Outlet />;
 };
 
-export default ProtectedRoute;
+export default UserMiddleware;

@@ -1,14 +1,8 @@
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import axios from "../../api/axios";
 
-interface ProtectedRouteProps {
-  children: React.ReactElement;
-}
-
-const ProtectedUnLoggedRoute: React.FC<ProtectedRouteProps> = ({
-  children,
-}) => {
+const ProtectedUnLoggedRoute = () => {
   const [isValidToken, setIsValidToken] = React.useState<boolean | null>(null);
 
   useEffect(() => {
@@ -30,14 +24,14 @@ const ProtectedUnLoggedRoute: React.FC<ProtectedRouteProps> = ({
   }, []);
 
   if (isValidToken === null) {
-    return <></>; 
+    return <></>;
   }
 
   if (isValidToken) {
-    return <Navigate to="/" />; 
+    return <Navigate to="/" />;
   }
 
-  return children;
+  return <Outlet />;
 };
 
 export default ProtectedUnLoggedRoute;

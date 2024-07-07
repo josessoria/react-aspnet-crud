@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom"; // Asumiendo que estás usando React Router para la navegación
 import zocopng from "../../assets/image/zocopng.png";
 import axios from "../../api/axios";
@@ -18,30 +19,14 @@ import {
   DropdownMenu,
   Avatar,
 } from "@nextui-org/react";
+import { UserContext, UserContextType } from "../../context/UserProvider";
 
 const Navbartab = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isValidToken, setIsValidToken] = React.useState<boolean | null>(null);
   const menuItems = ["Products", "Dashboard", "Log Out"];
+  const { user }: UserContextType = useContext(UserContext);
 
-  useEffect(() => {
-    const validateToken = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          // Endpoint para validar el token en tu backend
-          await axios.get("/api/token/validate");
-          setIsValidToken(true);
-        } catch (error) {
-          setIsValidToken(false);
-        }
-      } else {
-        setIsValidToken(false);
-      }
-    };
-
-    validateToken();
-  }, []);
+  console.log(user);
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -61,37 +46,23 @@ const Navbartab = () => {
         <NavbarBrand>
           <img src={zocopng} className=" w-[100px] " alt="" />
         </NavbarBrand>
-        <NavbarItem>
-          <Link color="foreground" to="#">
-            Features
-          </Link>
-        </NavbarItem>
         <NavbarItem isActive>
-          <Link to="#" aria-current="page">
-            Dashboard
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" to="#">
-            Integrations
-          </Link>
+          {user?.role === "admin" && (
+            <Link color="foreground" aria-current="page" to="/admin">
+              Admin
+            </Link>
+          )}
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end">
-        {!isValidToken ? (
+        {!user ? (
           <>
             <NavbarItem className=" lg:flex">
               <Link to="/login">Login</Link>
             </NavbarItem>
             <NavbarItem>
-              <Button
-                as={Link}
-                color="warning"
-        
-                to="/register"
-                variant="flat"
-              >
+              <Button as={Link} color="warning" to="/register" variant="flat">
                 Sign Up
               </Button>
             </NavbarItem>
@@ -101,10 +72,8 @@ const Navbartab = () => {
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <Avatar
-                  isBordered
                   as="button"
-                  className="transition-transform"
-                  color="secondary"
+                  className="transition-transform shadow-xl"
                   name="Jason Hughes"
                   size="sm"
                   src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
@@ -113,7 +82,7 @@ const Navbartab = () => {
               <DropdownMenu aria-label="Profile Actions" variant="flat">
                 <DropdownItem key="profile" className="h-14 gap-2">
                   <p className="font-semibold">Signed in as</p>
-                  <p className="font-semibold">zoey@example.com</p>
+                  <p className="font-semibold">{user.email}</p>
                 </DropdownItem>
                 <DropdownItem key="settings">My Settings</DropdownItem>
                 <DropdownItem key="team_settings">Team Settings</DropdownItem>

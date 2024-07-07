@@ -1,46 +1,30 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
-import { AuthProvider } from "../context/AuthContext";
 import ProtectedUnLoggedRoute from "./middlewares/ProtectedUnLogedUser";
 import ProtectedRoute from "./middlewares/ProtectedRoute";
 import Home from "../pages/Home";
-import Navbartab from "../components/Navbar/Navbar";
-
+import NavbarMiddleware from "./middlewares/NavbarMiddleware";
+import UserMiddleware from "./middlewares/UserMiddleware";
 
 const Router = () => {
   return (
-    <AuthProvider>
-      <Navbartab />
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            <ProtectedUnLoggedRoute>
-              <Login />
-            </ProtectedUnLoggedRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <ProtectedUnLoggedRoute>
-              <Register />
-            </ProtectedUnLoggedRoute>
-          }
-        />
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Register />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </AuthProvider>
+    <Routes>
+      <Route element={<NavbarMiddleware />}>
+        <Route element={<UserMiddleware />}>
+          <Route path="/" element={<Home />} />
+          
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" />
+          </Route>
+        </Route>
+      </Route>
+      <Route element={<ProtectedUnLoggedRoute />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+    </Routes>
   );
 };
 

@@ -58,6 +58,11 @@ namespace Zocoapi.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Product.Server.Models.Product>> PostProduct(Product.Server.Models.Product product)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 

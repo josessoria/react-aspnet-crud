@@ -1,79 +1,128 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-interface ProtectedRouteProps {
-  children: React.ReactElement;
-}
+import ProductProvider, {
+  ProductContext,
+  ProductContextType,
+} from "../../context/ProductContext";
+import axios from "../../api/axios";
+import zocologo from "../../assets/image/zocologo.jpg";
+import { MdModeEdit } from "react-icons/md";
+import { UserContext, UserContextType } from "../../context/UserProvider";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
+
+import { Input, Textarea } from "@nextui-org/react";
 
 const Products = () => {
-  const list = [
-    {
-      title: "Orange",
-      img: "/images/fruit-1.jpeg",
-      price: "$5.50",
-    },
-    {
-      title: "Tangerine",
-      img: "/images/fruit-2.jpeg",
-      price: "$3.00",
-    },
-    {
-      title: "Raspberry",
-      img: "/images/fruit-3.jpeg",
-      price: "$10.00",
-    },
-    {
-      title: "Lemon",
-      img: "/images/fruit-4.jpeg",
-      price: "$5.30",
-    },
-    {
-      title: "Avocado",
-      img: "/images/fruit-5.jpeg",
-      price: "$15.70",
-    },
-    {
-      title: "Lemon 2",
-      img: "/images/fruit-6.jpeg",
-      price: "$8.00",
-    },
-    {
-      title: "Banana",
-      img: "/images/fruit-7.jpeg",
-      price: "$7.50",
-    },
-    {
-      title: "Watermelon",
-      img: "/images/fruit-8.jpeg",
-      price: "$12.20",
-    },
-  ];
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleOpen = () => {
+    onOpen();
+  };
+  const {
+    product,
+    setProduct,
+    deleteProduct,
+    updateProduct,
+    addProduct,
+    products,
+    setProducts,
+  }: ProductContextType = useContext(ProductContext);
+
+  const { user }: UserContextType = useContext(UserContext);
+
+  const handleEditProduct = (productId) => {
+    const selectedProduct = products.find(
+      (product) => product.id === productId
+    );
+
+    if (selectedProduct) {
+      // Hacer algo con el producto seleccionado, por ejemplo, abrir un modal con sus detalles
+      console.log("Producto seleccionado:", selectedProduct);
+      // Aquí puedes abrir un modal o realizar alguna acción adicional
+    } else {
+      console.log(`No se encontró ningún producto con el id ${productId}`);
+    }
+
+    
+  };
+
+  useEffect(() => {
+    async function getProducts() {
+      try {
+        const products = await axios.get("/api/Products");
+
+        setProducts(products.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getProducts();
+  }, []);
+
+  const isAdmin = user && user.role === "admin";
   return (
-    <div className="flex flex-wrap gap-[60px] w-full justify-start max-w-[1500px] mt-[10px] ">
-      {list.map((item, index) => (
-        <Card
-          shadow="sm"
-          key={index}
-          isPressable
-          onPress={() => console.log("item pressed")}
-          className=" min-w-[160px] "
-        >
-          <CardBody className="overflow-visible p-0">
-            <Image
-              shadow="sm"
-              radius="lg"
-              width="100%"
-              alt={item.title}
-              className="w-full object-cover h-[140px]"
-              src={item.img}
-            />
-          </CardBody>
-          <CardFooter className="text-small justify-between">
-            <b>{item.title}</b>
-            <p className="text-default-500">{item.price}</p>
-          </CardFooter>
-        </Card>
-      ))}
-    </div>
+    <>
+      <div className="flex flex-wrap gap-[20px] w-full justify-center px-5   ">
+        {products.map((item, index) => (
+          <div
+            className="cartitaproduct shadow-lg rounded-xl p-1 flex flex-col w-[250px] "
+            key={index}
+          >
+            <div className="image rounded-xl relative ">
+              <img
+                src={zocologo}
+                className="w-full object-cover rounded-tl-xl  rounded-tr-xl"
+                alt=""
+              />
+              {isAdmin && (
+                <MdModeEdit
+                  className="absolute text-white top-[15px] text-[25px] right-[15px] cursor-pointer"
+                  onClick={() => handleEditProduct(item.id)}
+                />
+              )}
+            </div>
+            <div className="bottomcard flex flex-col  ">
+              <div className="colrower flex flex-col w-full justify-between p-1 ">
+                <span className=" font-[500] text-[18px]  ">{item.name}</span>
+
+                <span className=" font-[400] text-[15px] w-full ">
+                  {item.description}
+                </span>
+                <span className="font-[500] text-[25px]  ">${item.price} </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Modal size="md" isOpen={isOpen} onClose={onClose}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Crear Producto
+              </ModalHeader>
+              <ModalBody></ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onClick={onClose}>
+                  Cerrar
+                </Button>
+                <Button className=" bg-[#B3C300] ">
+                  <span className=" text-white font-[500]">Crear</span>
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
