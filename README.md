@@ -17,7 +17,6 @@ Este repositorio alberga una aplicaci√≥n web para gestionar productos y categor√
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tu-usuario/Zocoapi.git
    cd Zocoapi
    ```
 
@@ -50,7 +49,6 @@ Este repositorio alberga una aplicaci√≥n web para gestionar productos y categor√
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tu-usuario/ZocoFrontend.git
    cd ZocoFrontend
    ```
 
