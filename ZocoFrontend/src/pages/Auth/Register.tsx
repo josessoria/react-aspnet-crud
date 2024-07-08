@@ -8,6 +8,7 @@ import { AuthSubmit } from "../../components/AuthSubmit";
 import { ContinueWithGoogle } from "../../components/ContinueWithGoogle";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 import "./Auth.scss";
 
@@ -130,8 +131,9 @@ const Register = () => {
         await authContext.register(data);
         window.location.reload();
       }
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
+      toast.error(String(error.response.data.message));
     }
   };
 

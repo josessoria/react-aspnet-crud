@@ -8,6 +8,7 @@ import { AuthSubmit } from "../../components/AuthSubmit";
 import { AuthContext } from "../../context/AuthContext";
 import { AuthLoginOptions } from "../../components/AuthLoginOptions";
 import { ContinueWithGoogle } from "../../components/ContinueWithGoogle";
+import toast from "react-hot-toast";
 
 import "./Auth.scss";
 
@@ -98,8 +99,9 @@ const Login = () => {
         await authContext.login(data);
         window.location.reload();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      toast.error(String(error.response.data.message));
     }
   };
 

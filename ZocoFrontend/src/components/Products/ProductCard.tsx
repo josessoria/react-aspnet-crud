@@ -8,7 +8,7 @@ type ProductCardProps = {
   product: Product;
   isAdmin: boolean;
   onEdit: (productId: number) => void;
-  onDelete: (productId: number) => void; 
+  onDelete: (productId: number) => void;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({

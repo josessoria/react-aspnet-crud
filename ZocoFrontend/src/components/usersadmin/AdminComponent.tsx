@@ -8,7 +8,7 @@ import {
   UsersContext,
   UsersContextType,
 } from "../../context/UsersAdminProvider";
-
+import toast from "react-hot-toast";
 const AdminComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -20,15 +20,19 @@ const AdminComponent = () => {
     try {
       const response = await axios.post("/api/Users", newUser);
       addUser(response.data);
-    } catch (error) {
-      console.error("Error creating user:", error);
+    } catch (error: any) {
+      if (error.response) {
+        toast.error(error.response.data.message || "Error al crear usuario.");
+      } else {
+        toast.error("Error de red al intentar crear usuario.");
+      }
     }
   };
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const { data } = await axios.get("/api/users"); 
+        const { data } = await axios.get("/api/users");
         setUsers(data);
       } catch (error) {
         console.log(error);
@@ -37,7 +41,6 @@ const AdminComponent = () => {
 
     getUsers();
   }, []);
-
 
   const handleEditUser = async (updatedUser: any) => {
     try {

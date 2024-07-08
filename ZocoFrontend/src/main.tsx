@@ -8,6 +8,8 @@ import UserProvider from "./context/UserProvider.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import ProductProvider from "./context/ProductContext.tsx";
 import { UsersProvider } from "./context/UsersAdminProvider.tsx";
+import { CategoryProvider } from "./context/CategoryContext.tsx";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -17,7 +19,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <UserProvider>
             <ProductProvider>
               <UsersProvider>
-                <App />
+                <CategoryProvider>
+                  <Toaster />
+                  <App />
+                </CategoryProvider>
               </UsersProvider>
             </ProductProvider>
           </UserProvider>

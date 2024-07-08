@@ -5,7 +5,7 @@ interface Product {
   description: string;
   id: number;
   price: number;
-  categoryId: number
+  categoryId: number;
 }
 
 export interface ProductContextType {
