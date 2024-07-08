@@ -1,0 +1,54 @@
+
+CREATE DATABASE ZocoDbTraining;
+GO
+
+USE ZocoDbTraining;
+GO
+
+CREATE TABLE Category (
+    Id INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(50) NOT NULL
+);
+GO
+
+
+CREATE TABLE Products (
+    Id INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(50) NOT NULL,
+    Description NVARCHAR(500) NOT NULL,
+    Price DECIMAL(18, 2) NOT NULL,
+    CategoryId INT NOT NULL,
+    CONSTRAINT FK_Products_Category FOREIGN KEY (CategoryId) REFERENCES Category(Id)
+);
+GO
+
+CREATE TABLE [User] (
+    Id INT PRIMARY KEY IDENTITY,
+    Username NVARCHAR(50) NOT NULL,
+    PasswordHash NVARCHAR(1000) NOT NULL,
+    Email NVARCHAR(100),
+    Role NVARCHAR(50) NOT NULL DEFAULT 'user'
+);
+GO
+
+INSERT INTO Category (Name) VALUES ('Electrónica');
+INSERT INTO Category (Name) VALUES ('Hogar');
+INSERT INTO Category (Name) VALUES ('Jardín');
+GO
+
+INSERT INTO Products (Name, Description, Price, CategoryId)
+VALUES ('Smartphone', 'Teléfono inteligente avanzado', 599.99, 1);
+
+INSERT INTO Products (Name, Description, Price, CategoryId)
+VALUES ('Cafetera', 'Máquina de café automática', 129.99, 2);
+
+INSERT INTO Products (Name, Description, Price, CategoryId)
+VALUES ('Podadora eléctrica', 'Podadora eléctrica para césped', 199.99, 3);
+
+INSERT INTO Products (Name, Description, Price, CategoryId)
+VALUES ('Tablet', 'Tablet con pantalla HD', 299.99, 1);
+
+INSERT INTO Products (Name, Description, Price, CategoryId)
+VALUES ('Aspiradora', 'Aspiradora sin bolsa', 149.99, 2);
+GO
+

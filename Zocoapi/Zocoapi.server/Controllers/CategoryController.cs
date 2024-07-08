@@ -21,7 +21,7 @@ namespace Zocoapi.server.Controllers
         }
 
         // GET: api/Category
-        [Authorize(Policy = "AdminOnly")]
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
