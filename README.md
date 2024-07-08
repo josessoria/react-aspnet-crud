@@ -15,7 +15,7 @@ Este repositorio alberga una aplicaci√≥n web para gestionar productos y categor√
 
 ### Zocoapi
 
-1. **Clonar el repositorio:**
+1. **Dirigirnos a la carpeta:**
    ```bash
    cd Zocoapi
    ```
@@ -47,7 +47,7 @@ Este repositorio alberga una aplicaci√≥n web para gestionar productos y categor√
 
 ### ZocoFrontend
 
-1. **Clonar el repositorio:**
+1. **Dirigirnos a la carpeta:**
    ```bash
    cd ZocoFrontend
    ```
