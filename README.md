@@ -6,7 +6,7 @@ Este repositorio alberga una aplicación web para gestionar productos y categor�
 ## Estructura del Repositorio
 
 - **Zocoapi**
-  - `Zocoapi.server`: Backend construido con .NET 6.0 y C#.
+  - `Zocoapi.server`: Backend construido con .NET 6.0, C#, SQL SERVER.
   
 - **ZocoFrontend**
   - Raíz del proyecto frontend construido con Vite, React, y TypeScript.
@@ -26,12 +26,21 @@ Este repositorio alberga una aplicación web para gestionar productos y categor�
    ```bash
    cd Zocoapi.server
    dotnet restore
+   dotnet build   
    ```
-
-3. **Configuración del entorno:**
-   Configura las variables de entorno según sea necesario.
-
-4. **Ejecutar la aplicación:**
+   
+3. **Configuración de la base de datos:**
+   ```bash
+   Ejecuta el contenido de SCRIPT SQL.txt que está en la raiz de este repositorio en tu SQL SERVER 
+   ```
+   
+4. **Configuración del entorno:**
+   ```bash
+   cd Zocoapi.server
+   Configura el appsettings.json y colca tu url de tu base de datos sql server  
+   ```
+   
+5. **Ejecutar la aplicación:**
    ```bash
    dotnet run
    ```
@@ -50,11 +59,8 @@ Este repositorio alberga una aplicación web para gestionar productos y categor�
    ```bash
    npm install
    ```
-
-3. **Configuración del entorno:**
-   Configura las variables de entorno según sea necesario.
-
-4. **Compilar y ejecutar el servidor de desarrollo:**
+   
+3. **Compilar y ejecutar el servidor de desarrollo:**
    ```bash
    npm run dev
    ```
