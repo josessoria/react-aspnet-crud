@@ -59,11 +59,8 @@ Este repositorio alberga una aplicación web para gestionar productos y categor�
    ```bash
    npm install
    ```
-
-3. **Configuración del entorno:**
-   Configura las variables de entorno según sea necesario.
-
-4. **Compilar y ejecutar el servidor de desarrollo:**
+   
+3. **Compilar y ejecutar el servidor de desarrollo:**
    ```bash
    npm run dev
    ```
