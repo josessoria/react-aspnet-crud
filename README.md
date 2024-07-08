@@ -29,8 +29,9 @@ Este repositorio alberga una aplicación web para gestionar productos y categor�
    dotnet build   
    ```
 3. **Configuración de la base de datos:**
-   Ejecuta el contenido de SCRIPT SQL.txt en tu SQL SERVER lo que creará la base de datos que utilizaremos
-   
+    ```bash
+  Ejecuta el contenido de SCRIPT SQL.txt de este repositorio en tu SQL SERVER
+   ```   
 5. **Configuración del entorno:**
    Configura el .appsettings.json y colca tu url de tu base de datos sql server
 
