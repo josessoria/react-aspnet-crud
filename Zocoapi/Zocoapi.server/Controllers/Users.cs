@@ -96,7 +96,7 @@ namespace Zocoapi.server.Controllers
 
             if (currentUser == null || currentUser.Role != "admin")
             {
-                return Forbid(); 
+                return Forbid();
             }
 
             if (id != user.Id)

@@ -1,27 +1,29 @@
 // TabActions.tsx
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Button } from "@nextui-org/button";
-import { useDisclosure } from "@nextui-org/react";
 import { UserContext, UserContextType } from "../../context/UserProvider";
 import ModalCrearProducto from "./ModalCrearProducto";
 import ModalCrearCategoria from "./ModalCrearCategoria"; // Importa el nuevo componente ModalCrearCategoria
 import axion from "../../api/axios";
 import toast from "react-hot-toast";
+import "./TabActions.scss";
 
-const TabActions = () => {
+const TabActions = ({
+  isOpenProducto,
+  onOpenProducto,
+  onCloseProducto,
+  isOpenCategoria,
+  onOpenCategoria,
+  onCloseCategoria,
+}: {
+  isOpenProducto: boolean;
+  onOpenProducto: () => void;
+  onCloseProducto: () => void;
+  isOpenCategoria: boolean;
+  onOpenCategoria: () => void;
+  onCloseCategoria: () => void;
+}) => {
   const { user, setUser }: UserContextType = useContext(UserContext);
-
-  // Estados para manejar los modales
-  const {
-    isOpen: isOpenProducto,
-    onOpen: onOpenProducto,
-    onClose: onCloseProducto,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenCategoria,
-    onOpen: onOpenCategoria,
-    onClose: onCloseCategoria,
-  } = useDisclosure();
 
   const handleAdmin = async () => {
     try {
@@ -46,26 +48,41 @@ const TabActions = () => {
   };
 
   return (
-    <div className="w-full flex justify-start gap-5 mt-20 px-5">
-      <Button className="bg-[#B3C300]" onPress={onOpenProducto}>
-        <span className="text-white font-[500]">Crear producto</span>
-      </Button>
-      <Button className="bg-[#1d3fff]" onPress={handleAdmin}>
-        <span className="text-white font-[500]">Ser admin</span>
-      </Button>
-      <Button className="bg-[#9e9e9e]" onPress={handleDefault}>
-        <span className="text-white font-[500]">Ser usuario</span>
-      </Button>
+    <div className="navchica w-full flex flex-wrap justify-start z-10 gap-5 py-[10px] bg-[#0F2A3D] justify-center fixed border-b-1 px-5">
+      <span
+        className="text-white font-[500] cursor-pointer hover:text-[#C5CF2F] w-[130px] text-center "
+        onClick={onOpenProducto}
+      >
+        Crear producto
+      </span>
+
+      <span
+        className="text-white font-[500] cursor-pointer  text-center  w-[130px] hover:text-[#C5CF2F]"
+        onClick={handleAdmin}
+      >
+        Ser admin
+      </span>
+
+      <span
+        className="text-white font-[500] cursor-pointer text-center   w-[130px] hover:text-[#C5CF2F]"
+        onClick={handleDefault}
+      >
+        Ser usuario
+      </span>
+
       {user?.role === "admin" && (
-        <Button className="bg-[#9e9e9e]" onPress={onOpenCategoria}>
-          <span className="text-white font-[500]">Crear Categoría</span>
-        </Button>
+        <span
+          className="text-white font-[500] cursor-pointer  text-center  w-[130px] hover:text-[#C5CF2F]"
+          onClick={onOpenCategoria}
+        >
+          Crear Categoría
+        </span>
       )}
       <ModalCrearProducto isOpen={isOpenProducto} onClose={onCloseProducto} />
       <ModalCrearCategoria
         isOpen={isOpenCategoria}
         onClose={onCloseCategoria}
-      />{" "}
+      />
     </div>
   );
 };

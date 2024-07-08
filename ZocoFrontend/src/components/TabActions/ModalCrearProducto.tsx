@@ -37,8 +37,6 @@ const ModalCrearProducto = ({
   });
   const { categories }: any = useCategoryContext();
 
-
-
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement

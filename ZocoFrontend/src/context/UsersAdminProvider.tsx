@@ -44,7 +44,7 @@ export const UsersProvider = ({ children }: { children: ReactNode }) => {
     const updatedUsers = users.map((user) =>
       user.id === updatedUser.id ? updatedUser : user
     );
-    console.log(updatedUsers);
+
     setUsers(updatedUsers);
   };
 

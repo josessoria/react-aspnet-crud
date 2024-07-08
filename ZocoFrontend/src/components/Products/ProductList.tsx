@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { Product } from "./Product"; // Asegúrate de importar el tipo Product
 import { useCategoryContext, Category } from "../../context/CategoryContext"; // Importa el contexto de categorías y la interfaz Category
+import "./product.scss"
 
 type ProductListProps = {
   groupedProducts: Record<number, Product[]>;
@@ -28,10 +29,10 @@ const ProductList: React.FC<ProductListProps> = ({
     <div className="flex flex-col flex-wrap gap-[20px] w-full justify-start px-5">
       {Object.entries(groupedProducts).map(([categoryId, products]) => (
         <div key={categoryId} className="w-full">
-          <h2 className="text-[30px] mb-5">
+          <h2 className="text-[18px] mb-2 rounded-md w-[130px] bg-[#0F2A3D] text-center py-[5px] text-[#C3D12E] font-[500] ">
             {getCategoryName(parseInt(categoryId))}
           </h2>
-          <div className="flex flex-wrap gap-[20px] w-full justify-start px-5">
+          <div className=" productsection flex flex-wrap gap-[20px] w-full justify-start border-b-1 pb-10 ">
             {products.map((product) => (
               <ProductCard
                 key={product.id}

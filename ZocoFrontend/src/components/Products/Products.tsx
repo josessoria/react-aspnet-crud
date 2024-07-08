@@ -10,6 +10,7 @@ import ProductList from "./ProductList";
 import { Product } from "./Product"; // Import the Product type
 import { useDisclosure } from "@nextui-org/react";
 import { useCategoryContext } from "../../context/CategoryContext";
+import toast from "react-hot-toast";
 
 interface Category {
   id: number;
@@ -79,6 +80,7 @@ const Products: React.FC = () => {
     try {
       await axios.put(`/api/Products/${currentProduct.id}`, currentProduct);
       updateProduct(currentProduct.id, currentProduct);
+      toast.success("producto editado correctamente");
       onClose();
     } catch (error) {
       console.log(error);
@@ -88,6 +90,7 @@ const Products: React.FC = () => {
     try {
       await axios.delete(`/api/Products/${productId}`);
       setProducts(products.filter((product) => product.id !== productId));
+      toast.success("producto eliminado correctamente");
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +106,6 @@ const Products: React.FC = () => {
       ...prevData,
       [name]: value,
     }));
-    console.log(currentProduct);
   };
 
   const isAdmin = user && user.role === "admin";

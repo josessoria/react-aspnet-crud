@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <ProductProvider>
               <UsersProvider>
                 <CategoryProvider>
-                  <Toaster />
+                  <Toaster position="top-right" reverseOrder={false} />
                   <App />
                 </CategoryProvider>
               </UsersProvider>
