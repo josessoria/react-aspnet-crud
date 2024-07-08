@@ -41,6 +41,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
 
   return (
     <Modal size="md" isOpen={isOpen} onClose={onClose}>
+  
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
           Editar Producto

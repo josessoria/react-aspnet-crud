@@ -114,12 +114,14 @@ const Products: React.FC = () => {
     if (!acc[product.categoryId]) {
       acc[product.categoryId] = [];
     }
+    console.log(acc)
     acc[product.categoryId].push(product);
     return acc;
   }, {} as Record<number, Product[]>);
 
   return (
     <>
+
       <ProductList
         groupedProducts={groupedProducts}
         isAdmin={isAdmin || false}

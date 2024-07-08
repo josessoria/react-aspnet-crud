@@ -29,6 +29,7 @@ const ProductList: React.FC<ProductListProps> = ({
     <div className="flex flex-col flex-wrap gap-[20px] w-full justify-start px-5">
       {Object.entries(groupedProducts).map(([categoryId, products]) => (
         <div key={categoryId} className="w-full">
+          
           <h2 className="text-[18px] mb-2 rounded-md w-[130px] bg-[#0F2A3D] text-center py-[5px] text-[#C3D12E] font-[500] ">
             {getCategoryName(parseInt(categoryId))}
           </h2>

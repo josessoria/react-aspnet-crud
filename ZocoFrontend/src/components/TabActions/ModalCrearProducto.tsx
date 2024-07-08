@@ -51,8 +51,9 @@ const ModalCrearProducto = ({
 
   const handleSubmit = async () => {
     try {
-      await axios.post("/api/Products", productData); // Enviar datos al backend para crear el producto
-      addProduct(productData); // Agregar producto al contexto local
+      const producto = await axios.post("/api/Products", productData); // Enviar datos al backend para crear el producto
+
+      addProduct(producto.data);
       toast.success("Producto creado exitosamente");
       onClose();
     } catch (error) {
