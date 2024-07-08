@@ -1,6 +1,6 @@
 // TabActions.tsx
-import React, { useContext } from "react";
-import { Button } from "@nextui-org/button";
+import { useContext } from "react";
+
 import { UserContext, UserContextType } from "../../context/UserProvider";
 import ModalCrearProducto from "./ModalCrearProducto";
 import ModalCrearCategoria from "./ModalCrearCategoria"; // Importa el nuevo componente ModalCrearCategoria
@@ -48,7 +48,7 @@ const TabActions = ({
   };
 
   return (
-    <div className="navchica w-full flex flex-wrap justify-start z-10 gap-5 py-[10px] bg-[#0F2A3D] justify-center fixed border-b-1 px-5">
+    <div className="navchica w-full flex flex-wrap z-10 gap-5 py-[10px] bg-[#0F2A3D] justify-center fixed border-b-1 px-5">
       <span
         className="text-white font-[500] cursor-pointer hover:text-[#C5CF2F] w-[130px] text-center "
         onClick={onOpenProducto}

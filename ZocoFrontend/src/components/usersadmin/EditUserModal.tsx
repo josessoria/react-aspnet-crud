@@ -10,7 +10,7 @@ import {
   Button,
   Input,
 } from "@nextui-org/react";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
+
 
 const EditUserModal = ({
   isOpen,
@@ -28,7 +28,7 @@ const EditUserModal = ({
     email: "",
     role: "",
   });
-  const [isVisible, setIsVisible] = useState(false);
+ 
 
   useEffect(() => {
     if (user) {
@@ -36,7 +36,7 @@ const EditUserModal = ({
     }
   }, [user]);
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+ 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

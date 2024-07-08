@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useContext } from "react";
+
 import { Link } from "react-router-dom";
 import zocopng from "../../assets/image/zocopng.png";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,15 @@ import toast from "react-hot-toast";
 const Navbartab = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const menuItems = ["Products", "Dashboard", "Log Out"];
+
+  const handleAdminClick = () => {
+    navigate("/admin");
+  };
+
+  const handleBrandClick = () => {
+    navigate("/");
+  };
+
   const { user, setUser }: UserContextType = useContext(UserContext);
 
   const handleLogout = (navigate: any) => {
@@ -84,13 +92,13 @@ const Navbartab = () => {
 
         <NavbarContent className="sm:hidden pr-3" justify="center">
           <NavbarBrand>
-            <img src={zocopng} className=" w-[100px] " alt="" />
+            <img src={zocopng} className=" w-[100px] cursor-pointer " onClick={handleBrandClick} alt="" />
           </NavbarBrand>
         </NavbarContent>
 
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarBrand>
-            <img src={zocopng} className=" w-[100px] " alt="" />
+            <img src={zocopng} className=" w-[100px] cursor-pointer "  onClick={handleBrandClick}  alt="" />
           </NavbarBrand>
           <NavbarItem isActive>
             <Link color="foreground" aria-current="page" to="/">
@@ -180,6 +188,16 @@ const Navbartab = () => {
                 onClick={onOpenCategoria}
               >
                 Crear Categoría
+              </span>
+            )}
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            {user?.role === "admin" && (
+              <span
+                className="text-[#2D3035] font-[500] cursor-pointer  text-center  w-[130px] hover:text-[#C5CF2F]"
+                onClick={handleAdminClick}
+              >
+                Dashboard admin
               </span>
             )}
           </NavbarMenuItem>

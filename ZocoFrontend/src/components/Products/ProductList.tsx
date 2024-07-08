@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProductCard from "./ProductCard";
 import { Product } from "./Product"; // Asegúrate de importar el tipo Product
-import { useCategoryContext, Category } from "../../context/CategoryContext"; // Importa el contexto de categorías y la interfaz Category
-import "./product.scss"
+import { useCategoryContext } from "../../context/CategoryContext"; // Importa el contexto de categorías y la interfaz Category
+import "./product.scss";
 
 type ProductListProps = {
   groupedProducts: Record<number, Product[]>;

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import  { useState, useContext, useEffect } from "react";
 import { Button, useDisclosure } from "@nextui-org/react";
 import axios from "../../api/axios";
 import UsersTable from "./UserTable";
