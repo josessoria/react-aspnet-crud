@@ -72,8 +72,6 @@ const TabActions = () => {
     }
   };
 
-
-
   const handleSubmit = () => {
     try {
       addProduct(productData);

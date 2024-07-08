@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom"; // Asumiendo que estás usando React Router para la navegación
 import zocopng from "../../assets/image/zocopng.png";
 import axios from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 import {
   Navbar,
@@ -22,10 +23,16 @@ import {
 import { UserContext, UserContextType } from "../../context/UserProvider";
 
 const Navbartab = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const menuItems = ["Products", "Dashboard", "Log Out"];
   const { user }: UserContextType = useContext(UserContext);
 
+  const handleLogout = (navigate: any) => {
+    localStorage.removeItem("token");
+
+    navigate("/login");
+  };
   console.log(user);
 
   return (
@@ -46,6 +53,11 @@ const Navbartab = () => {
         <NavbarBrand>
           <img src={zocopng} className=" w-[100px] " alt="" />
         </NavbarBrand>
+        <NavbarItem isActive>
+          <Link color="foreground" aria-current="page" to="/">
+            Home
+          </Link>
+        </NavbarItem>
         <NavbarItem isActive>
           {user?.role === "admin" && (
             <Link color="foreground" aria-current="page" to="/admin">
@@ -84,15 +96,11 @@ const Navbartab = () => {
                   <p className="font-semibold">Signed in as</p>
                   <p className="font-semibold">{user.email}</p>
                 </DropdownItem>
-                <DropdownItem key="settings">My Settings</DropdownItem>
-                <DropdownItem key="team_settings">Team Settings</DropdownItem>
-                <DropdownItem key="analytics">Analytics</DropdownItem>
-                <DropdownItem key="system">System</DropdownItem>
-                <DropdownItem key="configurations">Configurations</DropdownItem>
-                <DropdownItem key="help_and_feedback">
-                  Help & Feedback
-                </DropdownItem>
-                <DropdownItem key="logout" color="danger">
+                <DropdownItem
+                  key="logout"
+                  color="danger"
+                  onClick={() => handleLogout(navigate)}
+                >
                   Log Out
                 </DropdownItem>
               </DropdownMenu>

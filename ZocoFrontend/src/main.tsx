@@ -7,6 +7,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import UserProvider from "./context/UserProvider.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import ProductProvider from "./context/ProductContext.tsx";
+import { UsersProvider } from "./context/UsersAdminProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <AuthProvider>
           <UserProvider>
             <ProductProvider>
-              <App />
+              <UsersProvider>
+                <App />
+              </UsersProvider>
             </ProductProvider>
           </UserProvider>
         </AuthProvider>

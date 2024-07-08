@@ -47,7 +47,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:5173") // Reemplaza con la URL de tu frontend
+            .WithOrigins("http://localhost:5173") 
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
@@ -88,8 +88,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors("AllowSpecificOrigin"); // Usar la política de CORS antes de la autenticación y autorización
-app.UseAuthentication(); // Usar autenticación JWT antes de la autorización
+app.UseCors("AllowSpecificOrigin"); 
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllers();

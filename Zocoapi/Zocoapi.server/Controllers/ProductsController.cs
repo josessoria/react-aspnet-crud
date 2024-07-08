@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Product.Server.Models;
@@ -73,6 +74,15 @@ namespace Zocoapi.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product.Server.Models.Product product)
         {
+            var username = User.Identity.Name;
+
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null || user.Role != "admin")
+            {
+                return Forbid(); 
+            }
+
             if (id != product.Id)
             {
                 return BadRequest();
@@ -99,10 +109,19 @@ namespace Zocoapi.Server.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Products/5
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
+            var username = User.Identity.Name;
+
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null || user.Role != "admin")
+            {
+                return Forbid();
+            }
+
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
