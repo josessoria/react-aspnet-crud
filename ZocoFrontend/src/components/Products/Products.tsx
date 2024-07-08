@@ -9,6 +9,12 @@ import EditProductModal from "./EditProductModal";
 import ProductList from "./ProductList";
 import { Product } from "./Product"; // Import the Product type
 import { useDisclosure } from "@nextui-org/react";
+import { useCategoryContext } from "../../context/CategoryContext";
+
+interface Category {
+  id: number;
+  name: string;
+}
 
 const initialProductState: Product = {
   id: 1,
@@ -27,6 +33,21 @@ const Products: React.FC = () => {
     useContext(ProductContext);
 
   const { user }: UserContextType = useContext(UserContext);
+  const { setCategories }: any = useCategoryContext();
+
+  // Función para cargar las categorías desde el backend
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get<Category[]>("/api/Category");
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error al obtener las categorías:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories(); // Cargar categorías al montar el componente
+  }, []);
 
   useEffect(() => {
     const getProducts = async () => {

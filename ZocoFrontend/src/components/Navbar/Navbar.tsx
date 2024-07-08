@@ -33,7 +33,7 @@ const Navbartab = () => {
 
     navigate("/login");
   };
-  console.log(user);
+  
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>

@@ -35,21 +35,9 @@ const ModalCrearProducto = ({
     price: 0,
     categoryId: 1,
   });
-  const { categories, setCategories }: any = useCategoryContext();
+  const { categories }: any = useCategoryContext();
 
-  // Función para cargar las categorías desde el backend
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get<Category[]>("/api/Category");
-      setCategories(response.data);
-    } catch (error) {
-      console.error("Error al obtener las categorías:", error);
-    }
-  };
 
-  useEffect(() => {
-    fetchCategories(); // Cargar categorías al montar el componente
-  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<

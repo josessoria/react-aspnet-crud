@@ -13,9 +13,8 @@ const UserMiddleware = () => {
         try {
           // Endpoint para validar el token en tu backend
           const userinfo = await axios.get("/api/Users/current");
-          console.log(userinfo.data);
+
           setUser(userinfo.data);
-          console.log(user);
         } catch (error) {
           localStorage.removeItem("token");
         }
