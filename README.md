@@ -29,13 +29,17 @@ Este repositorio alberga una aplicación web para gestionar productos y categor�
    dotnet build   
    ```
 3. **Configuración de la base de datos:**
-    ```bash
-  Ejecuta el contenido de SCRIPT SQL.txt de este repositorio en tu SQL SERVER
-   ```   
-5. **Configuración del entorno:**
-   Configura el .appsettings.json y colca tu url de tu base de datos sql server
+  ```bash
+  Ejecuta el contenido de SCRIPT SQL.txt que está en la raiz de este repositorio en tu SQL SERVER
+```
 
-6. **Ejecutar la aplicación:**
+4. **Configuración del entorno:**
+      ```bash
+   cd Zocoapi.server
+   Configura el appsettings.json y colca tu url de tu base de datos sql server
+   ```
+      
+5. **Ejecutar la aplicación:**
    ```bash
    dotnet run
    ```
